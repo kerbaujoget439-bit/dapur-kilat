@@ -1,0 +1,44 @@
+// Seeded random numbers for Dapur Kilat: one tiny generator (mulberry32) so the
+// screenshot scenes and the order deck are reproducible from a single seed.
+export function mulberry32(seed) {
+  let a = seed >>> 0;
+  return function nextRandom() {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/** Pick one element of `items` using `rng`. */
+export function pickRandom(rng, items) {
+  return items[Math.floor(rng() * items.length)];
+}
+
+/** An integer between min and max inclusive, using `rng`. */
+export function randomInt(rng, min, max) {
+  return min + Math.floor(rng() * (max - min + 1));
+}
+
+/** Turn a short string into a stable 32-bit seed (restart variety without Math.random). */
+export function hashSeed(text) {
+  let hash = 2166136261;
+  for (let i = 0; i < text.length; i += 1) {
+    hash ^= text.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+/** Shuffle a copy of `items` using `rng` (Fisher-Yates). */
+export function shuffleCopy(rng, items) {
+  const copy = items.slice();
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(rng() * (i + 1));
+    const tmp = copy[i];
+    copy[i] = copy[j];
+    copy[j] = tmp;
+  }
+  return copy;
+}
