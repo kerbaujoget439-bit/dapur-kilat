@@ -25,7 +25,7 @@ Serve `game/` with any static server (`node serve.ts`, then open http://localhos
 - `game/src/game-main.js` — the loop, movement, and the interact dispatch.
 - `game/src/game-state.js` — state, the shift clock, particles and floating scores.
 - `game/src/kitchen-layout.js` — the floor plan: every station's place and approach point.
-- `game/src/recipes.js` — the six ingredients and eight original dishes.
+- `game/src/recipes.js` — the six ingredients and ten original dishes.
 - `game/src/order-board.js` — spawning tickets, patience, matching plates, payouts.
 - `game/src/chopping-board.js` — the board: three chops per topping.
 - `game/src/stove-and-plating.js` — the wok and the plating counter.
